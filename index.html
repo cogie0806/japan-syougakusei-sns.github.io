@@ -11,14 +11,50 @@
 
     <!-- 入力するところ -->
     <div style="background: white; padding: 20px; border-radius: 10px; width: 300px; margin: 0 auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <textarea placeholder="いま何してる？" style="width: 90%; height: 60px;"></textarea><br><br>
-        <button style="background: #1e90ff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold;">とうこうする</button>
+        <!-- id="text-input" をつけました -->
+        <textarea id="text-input" placeholder="いま何してる？" style="width: 90%; height: 60px;"></textarea><br><br>
+        <!-- onclick="toukou()" をつけました -->
+        <button onclick="toukou()" style="background: #1e90ff; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">とうこうする</button>
     </div>
 
     <!-- みんなの投稿が見えるところ -->
-    <div style="margin-top: 20px;">
-        <p><b>みらいの天才プログラマー:</b> ついにSNS作りをはじめたぞ！ｗｗ</p>
+    <!-- id="post-list" をつけました -->
+    <div id="post-list" style="margin-top: 20px; display: flex; flex-direction: column; align-items: center;">
+        <p style="background: white; padding: 10px; border-radius: 5px; width: 300px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"><b>みらいの天才プログラマー:</b> ついにSNS作りをはじめたぞ！ｗｗ</p>
     </div>
+
+    <!-- 💡 ここからボタンを動かす魔法（JavaScript） -->
+    <script>
+        function toukou() {
+            // ① 四角い箱に入力された文字をゲットする
+            const inputElement = document.getElementById('text-input');
+            const message = inputElement.value;
+
+            // もし何も書いていなかったら、何もしない
+            if (message.trim() === "") {
+                alert("文字を入力してね！");
+                return;
+            }
+
+            // ② 新しい投稿の枠（パラグラフ）を作る
+            const newPost = document.createElement('p');
+            newPost.style.background = "white";
+            newPost.style.padding = "10px";
+            newPost.style.borderRadius = "5px";
+            newPost.style.width = "300px";
+            newPost.style.box-shadow = "0 2px 4px rgba(0,0,0,0.05)";
+            
+            // 投稿する文字をセットする（名前はとりあえず「名無しキッズ」）
+            newPost.innerHTML = `<b>名無しキッズ:</b> ${message}`;
+
+            // ③ みんなの投稿が見える場所に、作った枠をドッキングする
+            const postList = document.getElementById('post-list');
+            postList.insertBefore(newPost, postList.firstChild); // 一番上に追加するよ
+
+            // ④ 入力した文字を消してカラッポにする
+            inputElement.value = "";
+        }
+    </script>
 
 </body>
 </html>
